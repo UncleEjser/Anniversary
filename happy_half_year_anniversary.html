@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Half-Year Anniversary! 💖</title>
+  <style>
+    body {
+      background-color: #da9cdf;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+      margin: 50px;
+      color: #de0b0b;
+      overflow-y: auto;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    pre {
+      font-size: 20px;
+      line-height: 1.2;
+      white-space: pre-wrap;
+    }
+    #scratch-container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      margin: 30px auto;
+    }
+    #hidden-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .dancer {
+      position: fixed;
+      width: 160px;
+      height: 160px;
+      animation: wiggle 2s infinite ease-in-out alternate;
+      pointer-events: none;
+    }
+    .top-left {
+      top: 20px;
+      left: 20px;
+    }
+    .top-right {
+      top: 20px;
+      right: 20px;
+    }
+    .bottom-left {
+      bottom: 20px;
+      left: 20px;
+    }
+    .bottom-right {
+      bottom: 20px;
+      right: 20px;
+    }
+    @keyframes wiggle {
+      0% { transform: rotate(-10deg); }
+      100% { transform: rotate(10deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>💕🎉 Happy Half-Year Anniversary Sonyushka! 🎉💕</h1>
+
+  
+
+  <p>💖 My love for you is eternal my cutie, and since we will go thru a lot, I got you something so you could capture the moments 💖</p>
+
+  <div id="scratch-container">
+    <img id="hidden-image" src="Kamera.png" alt="Cheese!" />
+    <canvas id="scratch-canvas" width="300" height="400"></canvas>
+  </div>
+  
+</div>
+
+  <pre>
+******       ******
+**********   **********
+************* *************
+*****************************
+*****************************
+***************************
+***********************
+*******************
+***************
+***********
+*******
+***
+*
+  </pre>
+  <img src="Ja.jpg" class="dancer top-left" alt="Dancer">
+  <img src="Sonyushka.jpg" class="dancer top-right" alt="Dancer">
+  <img src="Flekica.jpg" class="dancer bottom-left" alt="Dancer">
+  <img src="Tomas.jpg" class="dancer bottom-right" alt="Dancer">
+
+  <audio id="bg-audio">
+    <source src="Kiss.mp3" type="audio/mpeg">
+    Music doesn't work for some reason Sonyushka :(.
+  </audio>
+
+  <script>
+    const canvas = document.getElementById('scratch-canvas');
+    const ctx = canvas.getContext('2d');
+    const audio = document.getElementById('bg-audio');
+    let hasPlayed = false;
+
+    const coverImage = new Image();
+    coverImage.src = 'pozadinaTiketa.png';
+
+    coverImage.onload = () => {
+      ctx.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'destination-out';
+    };
+
+    let isDrawing = false;
+
+    function getMousePos(canvas, e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
+    canvas.addEventListener('mousedown', () => {
+      isDrawing = true;
+      if (!hasPlayed) {
+        audio.play();
+        hasPlayed = true;
+      }
+    });
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      const pos = getMousePos(canvas, e);
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  </script>
+</body>
+</html>
